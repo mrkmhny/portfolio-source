@@ -23,8 +23,11 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
+<<<<<<< HEAD
     "file-loader": "^0.11.2",
     "image-webpack-loader": "^3.3.1",
+=======
+>>>>>>> origin/master
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",

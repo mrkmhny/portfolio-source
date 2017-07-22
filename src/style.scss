@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
+=======
+>>>>>>> origin/master
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -46,6 +49,7 @@ table {
 	border-spacing: 0;
 }
 
+<<<<<<< HEAD
 /* SASS Mixins */
 /*
 @mixin for-phone-only {
@@ -142,4 +146,8 @@ h1 {
 	@include desktop {
     color:red;
   }
+=======
+h1 {
+  color:green;
+>>>>>>> origin/master
 }
