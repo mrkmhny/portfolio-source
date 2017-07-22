@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
-=======
->>>>>>> origin/master
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -49,26 +46,13 @@ table {
 	border-spacing: 0;
 }
 
-<<<<<<< HEAD
 /* SASS Mixins */
-/*
-@mixin for-phone-only {
-  @media (max-width: 599px) { @content; }
-}
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) and (max-width: 899px) { @content; }
-}
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) and (max-width: 1199px) { @content; }
-}
-@mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
-}
-*/
 
+// Responsive Media Queries
 $phone-width: 1px;
-$tablet-width: 768px;
-$desktop-width: 1024px;
+$tablet-width: 600px;
+$desktop-width: 900px;
+$big-width: 1050px;
 
 @mixin phone {
   @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width - 1px}) {
@@ -83,11 +67,12 @@ $desktop-width: 1024px;
 }
 
 @mixin desktop {
-  @media (min-width: #{$desktop-width}) {
+  @media (min-width: #{$desktop-width}){
     @content;
   }
 }
 
+// Gradient tool
 @mixin gradient($from, $to) {
   /* fallback/image non-cover color */
   background-color: $from;
@@ -105,14 +90,25 @@ $desktop-width: 1024px;
   background-image: -o-linear-gradient($from, $to);
 }
 
+// Common styles
+@mixin text-box($color) {
+	background-color: $color;
+	box-shadow:3px 4px 0px white;
+	font-family:"Anton";
+	text-align:right;
+	font-size:18px;
+	color:white;
+	padding-right:20px;
+}
+
 /* Styles */
 
 body {
 
   background:
     linear-gradient(
-      rgba(0,0,0, 0.25),
-      rgba(255,255,255, 0.35)
+		  rgba(255,255,255, 0.35),
+      rgba(0,0,0, 0.25)
     ),
     url(./images/asteroids.jpg);
     //background-position: 0px 0px;
@@ -125,29 +121,24 @@ h1 {
 
 .container {
 	display:flex;
-	justify-content: flex-start;
-	margin-left: 50px;
+	justify-content: flex;
+	margin-left: 40px;
 }
 
 .greeting {
 	font-size:72px;
+	//width:100%;
 	color:white;
 	text-shadow:3px 4px 0px turquoise;
 	font-family:"Anton";
+}
 
-	@include phone {
-    color:blue;
-  }
+.tagline {
+	@include text-box(teal);
+  margin-bottom:20px;
+}
 
-	@include tablet {
-    color:yellow;
-  }
-
-	@include desktop {
-    color:red;
-  }
-=======
-h1 {
-  color:green;
->>>>>>> origin/master
+.choice {
+	@include text-box(lightSalmon);
+	height:50px;
 }

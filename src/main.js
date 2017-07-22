@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Counter from './components/Counter';
@@ -19,17 +18,3 @@ class App extends React.Component {
 }
 
 export default App;
-=======
-console.log('Hello World!');
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Counter from './Counter';
-import './style.scss'
-
-document.addEventListener('DOMContentLoaded', function() {
-  ReactDOM.render(
-    React.createElement(Counter),
-    document.getElementById('mount')
-  );
-});
->>>>>>> origin/master

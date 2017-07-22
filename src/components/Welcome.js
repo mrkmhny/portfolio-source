@@ -11,16 +11,10 @@ class Welcome extends React.Component {
   render() {
     return (
 
-      <div class="page">
+      <div className="page">
         <div className="greeting">Hi! Im Mark</div>
-
-      <button
-        onClick={() => {
-          this.setState({ count: this.state.count + 1 });
-        }}
-      >
-        Counterzzzzzzzz: {this.state.count}
-      </button>
+        <div className="tagline">I have a black nose</div>
+      <div className="choice">About me</div>
       </div>
     );
   }

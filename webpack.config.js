@@ -4,11 +4,8 @@ const webpack = require('webpack');
 module.exports = {
   context: path.join(__dirname, 'src'),
   entry: [
-<<<<<<< HEAD
     './render.js',
-=======
     './main.js',
->>>>>>> origin/master
     'webpack-hot-middleware/client',
     './style.scss'
   ],
@@ -19,11 +16,8 @@ module.exports = {
   module: {
     rules: [
       {
-<<<<<<< HEAD
         test: /\.js|.jsx?$/,
-=======
         test: /\.js$/,
->>>>>>> origin/master
         exclude: /node_modules/,
         loaders: [
           "react-hot-loader",
@@ -40,7 +34,6 @@ module.exports = {
           loader: "sass-loader" // compiles Sass to CSS
         }]
       },
-<<<<<<< HEAD
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
@@ -48,8 +41,6 @@ module.exports = {
           'image-webpack-loader',
         ],
       },
-=======
->>>>>>> origin/master
     ],
   },
   resolve: {
