@@ -49,24 +49,23 @@ table {
 /* SASS Mixins */
 
 // Responsive Media Queries
-$phone-width: 1px;
-$tablet-width: 600px;
-$desktop-width: 900px;
+$small-width: 1px;
+$medium-width: 750px;
 $big-width: 1050px;
 
-@mixin phone {
-  @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width - 1px}) {
+@mixin for-small-screen {
+  @media (min-width: #{$small-width}) and (max-width: #{$medium-width - 1px}) {
     @content;
   }
 }
 
-@mixin tablet {
-  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+@mixin for-medium-screen {
+  @media (min-width: #{$medium-width}) and (max-width: #{$large-width - 1px}) {
     @content;
   }
 }
 
-@mixin desktop {
+@mixin for-large-screen {
   @media (min-width: #{$desktop-width}){
     @content;
   }
@@ -92,13 +91,14 @@ $big-width: 1050px;
 
 // Common styles
 @mixin text-box($color) {
-	background-color: $color;
+	background: $color;
 	box-shadow:3px 4px 0px white;
 	font-family:"Anton";
 	text-align:right;
 	font-size:18px;
 	color:white;
 	padding-right:20px;
+	margin-bottom:12px;
 }
 
 /* Styles */
@@ -114,31 +114,57 @@ body {
     //background-position: 0px 0px;
 }
 
-h1 {
-  color:blue;
-	font-size: 30px;
+.container {
+	margin-top:50px;
+	display:flex;
+	justify-content: space-between;
+	flex-direction:column;
 }
 
-.container {
-	display:flex;
-	justify-content: flex;
-	margin-left: 40px;
+.welcome {
+	margin-bottom: 50px;
+}
+
+.content {
+	@include text-box(teal);
+	margin-left:40px;
+	margin-right:40px;
+	padding:20px;
+	text-align: left;
+
+	@include for-small-screen {
+		margin-left:20px;
+	}
 }
 
 .greeting {
 	font-size:72px;
-	//width:100%;
+	margin-left: 40px;
 	color:white;
 	text-shadow:3px 4px 0px turquoise;
 	font-family:"Anton";
+
+	// animation
+	//animation-delay: 0s;
 }
 
 .tagline {
 	@include text-box(teal);
   margin-bottom:20px;
+	font-size:28px;
+	max-width:410px;
+	margin-left:-50px;
+
 }
 
-.choice {
-	@include text-box(lightSalmon);
-	height:50px;
+.choices {
+	a {
+		text-decoration: none;
+	}
+
+	.choice {
+		@include text-box(lightSalmon);
+		width:250px;
+		margin-left:-50px;
+	}
 }

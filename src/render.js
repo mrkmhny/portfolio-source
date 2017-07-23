@@ -1,10 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './main';
+import Welcome from './components/Welcome';
+import Content from './components/Content';
+import {BrowserRouter, Route} from 'react-router-dom';
 
+
+// this file probably not needed
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
-    <App/>,
+    <BrowserRouter>
+        <Route path="/" component={Content}/>
+    </BrowserRouter>,
     document.getElementById('mount')
   );
 });
+*/
