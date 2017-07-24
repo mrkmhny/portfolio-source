@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Counter from './components/Counter';
 import Welcome from './components/Welcome';
-import Content from './components/Content';
+import About from './components/About';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
 import './style.scss'
 import {BrowserRouter, Route} from 'react-router-dom';
 
@@ -20,9 +22,9 @@ class App extends React.Component {
         <BrowserRouter>
             <Route path="/a" component={Welcome}/>
         </BrowserRouter>
-        <Content/>
-        <Content/>
-        <Content/>
+        <About/>
+        <Projects />
+        <Contact />
       </div>
     )
   }

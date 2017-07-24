@@ -121,19 +121,102 @@ body {
 	flex-direction:column;
 }
 
-.welcome {
-	margin-bottom: 50px;
+.page {
+	@include text-box(teal);
+	margin:20px 40px;
+	padding:30px 40px;
+	text-align: left;
+	box-shadow:6px 8px 0px white;
+
+	h1 {
+		font-size: 48px;
+		margin-left: -10px;
+		text-shadow:1px 3px 0px palegreen;
+		margin-bottom:25px;
+	}
+	h2 {
+		font-size:27px;
+		margin-bottom:15px;
+   	border-bottom: 3px solid palegreen;
+   	margin: 10px 0 20px;
+	}
+
+	p {
+		margin-bottom:15px;
+		font-family:helvetica;
+	}
 }
 
-.content {
-	@include text-box(teal);
-	margin-left:40px;
-	margin-right:40px;
-	padding:20px;
-	text-align: left;
+/*
+COLORS I LIKE:
+lightskyblue
+seagreen
+mediumseagreen
+lightblue
+cornflowerblue
+lightcoral
+*/
 
-	@include for-small-screen {
-		margin-left:20px;
+$about-bg: darkCyan;
+$about-accent:lightsalmon;
+.about {
+
+	background-color: $about-bg;
+	h1 {
+		text-shadow:1px 3px 0px $about-accent;
+	}
+	h2 {
+		border-bottom: 3px solid $about-accent;
+	}
+}
+
+$projects-bg: lightcoral;
+$projects-accent:lightskyblue;
+
+.projects {
+	background-color: $projects-bg;
+	h1 {
+		text-shadow:1px 3px 0px $projects-accent;
+	}
+	h2 {
+		border-bottom: 3px solid $projects-accent;
+	}
+
+	.collection {
+		display:flex;
+
+		.project {
+			display:flex;
+			width:100px;
+			height:100px;
+			margin-right: 15px;
+			background-color:$projects-accent;
+			box-shadow:3px 4px 0px white;
+		}
+	}
+}
+
+$contact-bg: cornflowerblue;
+$contact-accent:$projects-bg;
+.contact {
+	background-color: $contact-bg;
+	h1 {
+		text-shadow:1px 3px 0px $contact-accent;
+	}
+	h2 {
+		border-bottom: 3px solid $contact-accent;
+	}
+	p {
+		font-family:Calibri;
+	}
+}
+
+
+.welcome {
+	margin-bottom: 25px;
+	justify-content: space-between;
+	.left {
+		display:block;
 	}
 }
 
@@ -143,13 +226,10 @@ body {
 	color:white;
 	text-shadow:3px 4px 0px turquoise;
 	font-family:"Anton";
-
-	// animation
-	//animation-delay: 0s;
 }
 
 .tagline {
-	@include text-box(teal);
+	@include text-box(cornflowerblue);
   margin-bottom:20px;
 	font-size:28px;
 	max-width:410px;
@@ -164,6 +244,7 @@ body {
 
 	.choice {
 		@include text-box(lightSalmon);
+		box-shadow:3px 3px 0px white;
 		width:250px;
 		margin-left:-50px;
 	}

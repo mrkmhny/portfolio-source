@@ -1,4 +1,5 @@
 import React from 'react';
+import Contact from './Contact';
 
 class Welcome extends React.Component {
   constructor() {
@@ -35,10 +36,10 @@ class Welcome extends React.Component {
 
     return (
 
-      <div className="page welcome">
-        <div className="greeting animated fadeInDownBig" onHover={{animationDelay:"0s"}}>Hi! I'm Mark</div>
-        <div className="tagline animated fadeInLeft" style={{animationDelay:"1s"}}>I've been expecting you!</div>
-        <div className="choices">{navigation}</div>
+      <div className="welcome">
+          <div className="greeting animated fadeInDownBig">Hi! I'm Mark</div>
+          <div className="tagline animated fadeInLeft" style={{animationDelay:"1s"}}>I've been expecting you!</div>
+          <div className="choices">{navigation}</div>
       </div>
     );
   }
