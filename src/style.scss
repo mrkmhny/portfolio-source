@@ -107,8 +107,8 @@ body {
 
   background:
     linear-gradient(
-		  rgba(255,255,255, 0.35),
-      rgba(0,0,0, 0.25)
+		  rgba(255,255,255, 0.25),
+      rgba(255,255,255, 0.25)
     ),
     url(./images/asteroids.jpg);
     //background-position: 0px 0px;
@@ -213,6 +213,7 @@ $contact-accent:$projects-bg;
 
 
 .welcome {
+	width:40%;
 	margin-bottom: 25px;
 	justify-content: space-between;
 	.left {
@@ -247,5 +248,7 @@ $contact-accent:$projects-bg;
 		box-shadow:3px 3px 0px white;
 		width:250px;
 		margin-left:-50px;
+		padding-top:2px;
+		padding-bottom:2px;
 	}
 }
