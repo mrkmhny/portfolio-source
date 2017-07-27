@@ -184,14 +184,25 @@ $projects-accent:lightskyblue;
 
 	.collection {
 		display:flex;
+    flex-flow:column;
 
 		.project {
-			display:flex;
-			width:100px;
-			height:100px;
-			margin-right: 15px;
-			background-color:$projects-accent;
-			box-shadow:3px 4px 0px white;
+      display:flex;
+      flex-flow: column;
+      .project-info {
+        display:flex;
+        flex-flow: row;
+        .project-icon {
+    			width:75px;
+    			height:75px;
+    			margin-right: 15px;
+          margin-bottom: 15px;
+    			background-color:$projects-accent;
+    			box-shadow:3px 4px 0px white;
+        }
+        .project-about {
+        }
+    }
 		}
 	}
 }
