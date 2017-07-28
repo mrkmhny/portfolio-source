@@ -5,6 +5,9 @@ import Welcome from './components/Welcome';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import Sun from './components/Sun';
+import Music from './components/Music';
+import Photography from './components/Photography';
 import './style.scss'
 import {BrowserRouter, Route} from 'react-router-dom';
 
@@ -22,8 +25,10 @@ class App extends React.Component {
         <BrowserRouter>
             <Route path="/a" component={Welcome}/>
         </BrowserRouter>
-        <About/>
+        <About className="animated fadeInRight"/>
         <Projects />
+        <Music />
+        <Photography />
         <Contact />
       </div>
     )

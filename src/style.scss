@@ -50,7 +50,7 @@ table {
 
 // Responsive Media Queries
 $small-width: 1px;
-$medium-width: 750px;
+$medium-width: 775px;
 $big-width: 1050px;
 
 @mixin for-small-screen {
@@ -113,9 +113,10 @@ body {
     url(./images/asteroids.jpg);
     //background-position: 0px 0px;
 }
-
+$container-margin-top:50px;
 .container {
-	margin-top:50px;
+	margin-top:$container-margin-top;
+  max-width:100%;
 	display:flex;
 	justify-content: space-between;
 	flex-direction:column;
@@ -132,7 +133,7 @@ body {
 		font-size: 48px;
 		margin-left: -10px;
 		text-shadow:1px 3px 0px palegreen;
-		margin-bottom:25px;
+		margin-bottom:12px;
 	}
 	h2 {
 		font-size:27px;
@@ -140,6 +141,13 @@ body {
    	border-bottom: 3px solid palegreen;
    	margin: 10px 0 20px;
 	}
+  h3 {
+    font-size:20px;
+    text-transform: uppercase;
+    //text-shadow:1px 3px 0px darkslategrey;
+    margin-bottom:10px;
+    font-family: calibri;
+  }
 
 	p {
 		margin-bottom:15px;
@@ -193,18 +201,47 @@ $projects-accent:lightskyblue;
         display:flex;
         flex-flow: row;
         .project-icon {
+          display: flex;
+          justify-content: center;
     			width:75px;
     			height:75px;
     			margin-right: 15px;
           margin-bottom: 15px;
     			background-color:$projects-accent;
     			box-shadow:3px 4px 0px white;
+
+          i {
+            align-self: center;
+            font-size:60px;
+          }
         }
         .project-about {
         }
     }
 		}
 	}
+}
+
+$music-bg: khaki;
+$music-accent:limegreen;
+.music {
+	background-color: $music-bg;
+	h1 {
+		text-shadow:1px 3px 0px $music-accent;
+	}
+	h2 {
+		border-bottom: 3px solid $music-accent;
+	}
+  .soundcloud {
+    box-shadow:5px 5px 0px $music-accent;
+  }
+}
+
+.photography {
+  h3 {
+    margin-top: 30px;
+    font-size: 30px;
+  }
 }
 
 $contact-bg: cornflowerblue;
@@ -219,47 +256,172 @@ $contact-accent:$projects-bg;
 	}
 	p {
 		font-family:Calibri;
+    @include for-small-screen {
+      font-size:17px;
+    };
 	}
+  a {
+    text-decoration: none;
+    color:white;
+  }
+  i {
+    font-size: 22px;
+    @include for-small-screen {
+      font-size:16px;
+    };
+  }
 }
 
 
 .welcome {
-	width:40%;
 	margin-bottom: 25px;
-	justify-content: space-between;
-	.left {
-		display:block;
+  margin-right:10px;
+  width:100%;
+  display:flex;
+  justify-content: flex-start;
+
+  .greeting {
+  	font-size:72px;
+  	padding-left: 40px;
+  	color:white;
+  	text-shadow:3px 4px 0px turquoise;
+  	font-family:"Anton";
+  }
+
+  .tagline {
+  	@include text-box(cornflowerblue);
+    margin-bottom:20px;
+  	font-size:28px;
+  	max-width:1560px;
+  	margin-left:-1200px;
+    //padding-left: 60px;
+  }
+
+  .choices {
+  	a {
+  		text-decoration: none;
+  	}
+
+  	.choice {
+  		@include text-box(lightSalmon);
+  		box-shadow:3px 3px 0px white;
+  		width:1400px;
+  		margin-left:-1200px;
+  		padding-top:2px;
+  		padding-bottom:2px;
+  	}
+  }
+}
+
+
+// Sun Animation
+
+.sun {
+  display: flex;
+  justify-content: center;
+}
+
+.container-sun{
+  text-align:center;
+  margin:0 auto;
+  width:30px;
+  position:relative;
+  @include for-small-screen {
+    display:none;
+  }
+}
+
+  $cat-size:180px;
+    .svg-sun{
+
+      z-index: -1;
+    }
+    .cat {
+      position:absolute;
+      z-index: 1;
+      width:$cat-size;
+      left:-110px;
+      top:65px;
+      height:auto;
+      //margin-right:$cat-size/-2;
+      //margin-top:$container-margin-top*-1;
+    }
+
+/* the svg element */
+.svg-sun{
+  width:300px;
+  height:300px;
+  margin-left: -150px;
+
+  -webkit-transform-origin: center center;
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin:50% 50%;
+
+-webkit-animation: spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+-moz-animation: spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+-o-animation:spin 25s linear infinite, sun-glow 3s 0s linear infinite;
+-ms-animation: spin 25s linear infinite, sun-glow 3s 0s ease-in-out infinite;
+animation: spin 25s linear infinite,sun-glow 3s 0s linear infinite;
+
+}
+/* the circle element in the svg itself */
+#sun{
+  stroke-width:18;
+  stroke-dasharray:2;
+  stroke-dashoffset:2;
+}
+/* animation for the sun glowing effect */
+@-webkit-keyframes sun-glow {
+	0% { fill: #f1c40f; stroke:#f1c40f;}
+	50% { fill: #e67e22; stroke:#e67e22;}
+	100% { fill: #f1c40f; stroke:#f1c40f;}
+}
+@-moz-keyframes sun-glow {
+	0% { fill: #f1c40f; stroke:#f1c40f;}
+	50% { fill: #e67e22; stroke:#e67e22;}
+	100% { fill: #f1c40f; stroke:#f1c40f;}
+}
+@-o-keyframes sun-glow {
+	0% { fill: #f1c40f; stroke:#f1c40f;}
+	50% { fill: #e67e22; stroke:#e67e22;}
+	100% { fill: #f1c40f; stroke:#f1c40f;}
+}
+@-ms-keyframes sun-glow {
+	0% { fill: #f1c40f; stroke:#f1c40f;}
+	50% { fill: #e67e22; stroke:#e67e22;}
+	100% { fill: #f1c40f; stroke:#f1c40f;}
+}
+@keyframes sun-glow {
+	0% { fill: #f1c40f; stroke:#f1c40f;}
+	50% { fill: #e67e22; stroke:#e67e22;}
+	100% { fill: #f1c40f; stroke:#f1c40f;}
+}
+
+/* start spin animation */
+@-webkit-keyframes spin{
+	100% {
+		-webkit-transform: rotate(360deg);
 	}
 }
-
-.greeting {
-	font-size:72px;
-	margin-left: 40px;
-	color:white;
-	text-shadow:3px 4px 0px turquoise;
-	font-family:"Anton";
-}
-
-.tagline {
-	@include text-box(cornflowerblue);
-  margin-bottom:20px;
-	font-size:28px;
-	max-width:410px;
-	margin-left:-50px;
-
-}
-
-.choices {
-	a {
-		text-decoration: none;
+@-moz-keyframes spin{
+	100% {
+		-moz-transform: rotate(360deg);
 	}
-
-	.choice {
-		@include text-box(lightSalmon);
-		box-shadow:3px 3px 0px white;
-		width:250px;
-		margin-left:-50px;
-		padding-top:2px;
-		padding-bottom:2px;
+}
+@-o-keyframes spin{
+	100% {
+		-o-transform: rotate(360deg);
+	}
+}
+@-ms-keyframes spin{
+	100% {
+		-ms-transform: rotate(360deg);
+	}
+}
+@keyframes spin{
+	100% {
+		transform: rotate(360deg);
 	}
 }

@@ -16,25 +16,28 @@ class Projects extends React.Component {
         'link':'/about',
         'about':'A simple simon game',
         'languages':'Jquery, JS, html',
-        'icon':'sun-o'
+        'icon':'th-large'
       },
       {
         'name':'Box-Crusher',
         'link':'/about',
         'about':'A simple simon game',
-        'languages':'Jquery, JS, html'
+        'languages':'Jquery, JS, html',
+        'icon':'stop'
       },
       {
         'name':'Instant Weather',
         'link':'/about',
         'about':'A simple simon game',
-        'languages':'Jquery, JS, html'
+        'languages':'Jquery, JS, html',
+        'icon':'sun-o'
       },
       {
-        'name':'Simple Simon',
+        'name':'Band Name Generator',
         'link':'/about',
         'about':'A simple simon game',
-        'languages':'Jquery, JS, html'
+        'languages':'Jquery, JS, html',
+        'icon':'music'
       }
     ]
 
@@ -43,9 +46,8 @@ class Projects extends React.Component {
         <div key={i} className="project">
           <h2 className="project-name">{projects[i].name}</h2>
           <div className="project-info">
-          <i className="fa fa-sun-o" aria-hidden="true"></i>
             <div className="project-icon">
-              <i className="fa {'fa-'+projects[i].icon}" aria-hidden="true"></i>
+              <i className={'fa fa-' + projects[i].icon} aria-hidden="true"></i>
             </div>
             <p className="project-about">{projects[i].about}</p>
           </div>
@@ -55,11 +57,8 @@ class Projects extends React.Component {
 
     return (
 
-      <div className="page projects">
+      <div className="page projects animated fadeIn" id="projects">
         <h1>Projects</h1>
-
-
-
         <div className="collection">
           {collection}
         </div>

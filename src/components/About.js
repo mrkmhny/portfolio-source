@@ -11,7 +11,7 @@ class About extends React.Component {
   render() {
     return (
 
-      <div className="page about">
+      <div className="page about animated fadeIn" id="about">
         <h1>About Me</h1>
 
         <h2>I'm a Person</h2>
