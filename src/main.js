@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Counter from './components/Counter';
 import Welcome from './components/Welcome';
 import About from './components/About';
 import Projects from './components/Projects';

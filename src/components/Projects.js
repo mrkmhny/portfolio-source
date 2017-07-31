@@ -12,31 +12,38 @@ class Projects extends React.Component {
 
     var projects = [
       {
-        'name':'Simple Simon',
-        'link':'/about',
-        'about':'A simple simon game',
-        'languages':'Jquery, JS, html',
+        'name':'JSimon',
+        'repo':'https://codepen.io/mrkmhny/full/MpwWPJ/',
+        'about':'A pure JS/JQuery implementation of the classic electronic game "Simon"',
+        'languages':'Jquery, JavaScript, html',
         'icon':'th-large'
       },
       {
-        'name':'Box-Crusher',
-        'link':'/about',
-        'about':'A simple simon game',
-        'languages':'Jquery, JS, html',
+        'name':'Box Slayer',
+        'repo':'https://codepen.io/mrkmhny/full/bqRZyP/',
+        'about':'A low-fi rogue-inspired dungeon crawler game built with React/Redux',
+        'languages':'JavaScript, React.js, Redux, HTML',
         'icon':'stop'
       },
       {
         'name':'Instant Weather',
-        'link':'/about',
-        'about':'A simple simon game',
-        'languages':'Jquery, JS, html',
+        'repo':'https://codepen.io/mrkmhny/full/rjQrvY/',
+        'about':'Detects location via IP and retrieves data from 3rd party weather API',
+        'languages':'JavaScript, OpenWeatherMap API',
         'icon':'sun-o'
       },
       {
+        'name':"Conway's Game of Life",
+        'repo':'https://codepen.io/mrkmhny/full/rjQrvY/',
+        'about':'A React.js implementation of John Conway’s cellular automation',
+        'languages':'JavaScript, React.js',
+        'icon':'th'
+      },
+      {
         'name':'Band Name Generator',
-        'link':'/about',
+        'repo':'https://www.youtube.com/embed/XPslsKDocV8',
         'about':'A simple simon game',
-        'languages':'Jquery, JS, html',
+        'languages':'PHP, MySQL',
         'icon':'music'
       }
     ]
@@ -44,12 +51,19 @@ class Projects extends React.Component {
     var collection = Object.keys(projects).map(function(c,i,a){
       return (
         <div key={i} className="project">
-          <h2 className="project-name">{projects[i].name}</h2>
+          <a href={projects[i].repo}>
+            <h2 className="project-name">{projects[i].name}</h2>
+          </a>
           <div className="project-info">
-            <div className="project-icon">
-              <i className={'fa fa-' + projects[i].icon} aria-hidden="true"></i>
+            <a href={projects[i].repo}>
+              <div className="project-icon">
+                <i className={'fa fa-' + projects[i].icon} aria-hidden="true"></i>
+              </div>
+            </a>
+            <div className="project-text">
+              <p className="project-about">{projects[i].about}</p>
+              <p className="languages">Languages Used: {projects[i].languages}</p>
             </div>
-            <p className="project-about">{projects[i].about}</p>
           </div>
         </div>
       );

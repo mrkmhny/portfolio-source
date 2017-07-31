@@ -49,9 +49,16 @@ table {
 /* SASS Mixins */
 
 // Responsive Media Queries
-$small-width: 1px;
+$smaller-width:1px;
+$small-width: 500px;
 $medium-width: 775px;
 $big-width: 1050px;
+
+@mixin for-smaller-screen {
+  @media (min-width: #{$smaller-width}) and (max-width: #{$small-width - 1px}) {
+    @content;
+  }
+}
 
 @mixin for-small-screen {
   @media (min-width: #{$small-width}) and (max-width: #{$medium-width - 1px}) {
@@ -113,6 +120,16 @@ body {
     url(./images/asteroids.jpg);
     //background-position: 0px 0px;
 }
+
+a {
+	color:white;
+}
+
+i {
+	color:white;
+	font-size:16px;
+}
+
 $container-margin-top:50px;
 .container {
 	margin-top:$container-margin-top;
@@ -133,7 +150,7 @@ $container-margin-top:50px;
 		font-size: 48px;
 		margin-left: -10px;
 		text-shadow:1px 3px 0px palegreen;
-		margin-bottom:12px;
+		margin-bottom:15px;
 	}
 	h2 {
 		font-size:27px;
@@ -151,7 +168,7 @@ $container-margin-top:50px;
 
 	p {
 		margin-bottom:15px;
-		font-family:helvetica;
+		font-family:calibri;
 	}
 }
 
@@ -171,10 +188,55 @@ $about-accent:lightsalmon;
 
 	background-color: $about-bg;
 	h1 {
+		display: block;
 		text-shadow:1px 3px 0px $about-accent;
 	}
 	h2 {
+		display:block;
 		border-bottom: 3px solid $about-accent;
+	}
+	.development {
+		overflow:auto;
+
+		.image {
+			float:right;
+			width:200px;
+			height:auto;
+			margin-left: 10px;
+			margin-right: 5px;
+			margin-bottom:10px;
+			@include for-smaller-screen {
+				float:none;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			img {
+				width:200px;
+				height:auto;
+				box-shadow:5px 5px 0px $about-accent;
+				margin-bottom: 10px;
+			}
+			h4 {
+				clear:right;
+				text-align: center;
+				font-size:12px;
+				text-transform: uppercase;
+				font-family:helvetica;
+			}
+		}
+		.lantea {
+			float:left;
+			width:200px;
+			height:auto;
+			margin-left: 0px;
+			margin-right: 10px;
+			margin-bottom:10px;
+			@include for-smaller-screen {
+				float:none;
+				margin-right: auto;
+				margin-left: auto;
+			}
+		}
 	}
 }
 
@@ -197,6 +259,9 @@ $projects-accent:lightskyblue;
 		.project {
       display:flex;
       flex-flow: column;
+			a {
+				text-decoration: none;
+			}
       .project-info {
         display:flex;
         flex-flow: row;
@@ -209,7 +274,6 @@ $projects-accent:lightskyblue;
           margin-bottom: 15px;
     			background-color:$projects-accent;
     			box-shadow:3px 4px 0px white;
-
           i {
             align-self: center;
             font-size:60px;
@@ -233,11 +297,21 @@ $music-accent:limegreen;
 		border-bottom: 3px solid $music-accent;
 	}
   .soundcloud {
+		background: ghostwhite;
     box-shadow:5px 5px 0px $music-accent;
   }
 }
 
+$photography-bg: mediumturquoise;
+$photography-accent:mediumvioletred;
 .photography {
+	background-color: $photography-bg;
+	h1 {
+		text-shadow:1px 3px 0px $photography-accent;
+	}
+	h2 {
+		border-bottom: 3px solid $photography-accent;
+	}
   h3 {
     margin-top: 30px;
     font-size: 30px;
@@ -274,7 +348,7 @@ $contact-accent:$projects-bg;
 
 
 .welcome {
-	margin-bottom: 25px;
+	margin-bottom: 12px;
   margin-right:10px;
   width:100%;
   display:flex;
@@ -290,7 +364,7 @@ $contact-accent:$projects-bg;
 
   .tagline {
   	@include text-box(cornflowerblue);
-    margin-bottom:20px;
+    margin-bottom:30px;
   	font-size:28px;
   	max-width:1560px;
   	margin-left:-1200px;
