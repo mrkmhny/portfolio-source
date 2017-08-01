@@ -67,7 +67,7 @@ class Projects extends React.Component {
             </a>
             <div className="project-text">
               <p className="project-about">{projects[i].about}</p>
-              <p className="languages">Languages Used: {projects[i].languages}</p>{projects[i].repo ? '<a href={projects[i].repo}>View Source</a>'}
+              <p className="languages">Languages Used: {projects[i].languages}</p>{projects[i].repo && <a href={projects[i].repo}>View Source</a>}
             </div>
           </div>
         </div>

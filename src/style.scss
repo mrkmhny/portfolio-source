@@ -147,6 +147,11 @@ $container-margin-top:50px;
 	box-shadow:6px 8px 0px white;
   @include for-small-screen {
     margin:20px 20px;
+    padding:25px 35px;
+  };
+  @include for-smaller-screen {
+    margin:20px 10px;
+    padding:20px 30px;
   };
 
 	h1 {
@@ -166,12 +171,12 @@ $container-margin-top:50px;
     text-transform: uppercase;
     //text-shadow:1px 3px 0px darkslategrey;
     margin-bottom:10px;
-    font-family: calibri;
+    font-family: sans-serif;
   }
 
 	p {
 		margin-bottom:15px;
-		font-family:calibri;
+		font-family:sans-serif;
 	}
 }
 
@@ -332,7 +337,7 @@ $contact-accent:$projects-bg;
 		border-bottom: 3px solid $contact-accent;
 	}
 	p {
-		font-family:Calibri;
+		font-family:sans-serif;
     @include for-small-screen {
       font-size:17px;
     };
