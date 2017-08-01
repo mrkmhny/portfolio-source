@@ -1,0 +1,764 @@
+let Provider = ReactRedux.Provider
+
+// disable browser scrolling with arrows
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
+
+// board info
+const BOARDSIZE = {x:40,y:25};
+const CELLSIZE = 35;
+
+// action types
+const MOVE = 'MOVE';
+const UP = 'UP';
+const RIGHT = 'RIGHT';
+const DOWN = 'DOWN';
+const LEFT = 'LEFT';
+
+const HP = 'HP';
+
+const EXPUP = 'EXPUP';
+const LEVELUP = 'LEVELUP';
+const GETITEM = 'GETITEM';
+const FIGHT = 'FIGHT';
+const FIGHTBOSS = 'FIGHTBOSS';
+const NEWENEMY = 'NEWENEMY';
+const DEATH = 'DEATH';
+const WIN  = 'WIN';
+
+
+// board contents
+const EMPTY = 'EMPTY';
+const WALL = 'WALL';
+const ITEM = 'ITEM';
+const ITEM1 = {
+  x: Math.floor(Math.random() * (19-12+1)) + 12,
+  y: Math.floor(Math.random() * (13-7+1)) + 7,
+}
+
+const ITEM2 = {
+  x: Math.floor(Math.random() * (27-2+1)) + 2,
+  y: Math.floor(Math.random() * (19-15+1)) + 15,
+}
+
+const ITEM3 = {
+  x: Math.floor(Math.random() * (39-2+1)) + 2,
+  y: Math.floor(Math.random() * (24-21+1)) + 21,
+}
+
+const HEALTH = 'HEALTH';
+
+
+
+const ENEMY = 'ENEMY';
+
+const ENEMY1 = {
+  x: Math.floor(Math.random() * (10-4+1)) + 4,
+  y: Math.floor(Math.random() * (8-4+1)) + 4,
+}
+
+const ENEMY2 = {
+  x: Math.floor(Math.random() * (6-2+1)) + 2,
+  y: Math.floor(Math.random() * (13-10+1)) + 10,
+}
+
+const ENEMY3 = {
+  x: Math.floor(Math.random() * (27-2+1)) + 2,
+  y: Math.floor(Math.random() * (19-15+1)) + 15,
+}
+
+const ENEMY4 = {
+  x: Math.floor(Math.random() * (27-12+1)) + 12,
+  y: Math.floor(Math.random() * (5-2+1)) + 2,
+}
+
+const ENEMY5 = {
+  x: Math.floor(Math.random() * (27-2+1)) + 2,
+  y: Math.floor(Math.random() * (24-21+1)) + 21,
+}
+
+const ENEMY6 = {
+  x: Math.floor(Math.random() * (31-30+1)) + 30,
+  y: Math.floor(Math.random() * (4-3+1)) + 3,
+}
+
+const ENEMY7 = {
+  x: Math.floor(Math.random() * (38-37+1)) + 37,
+  y: Math.floor(Math.random() * (23-17+1)) + 17,
+}
+
+const BOSS1 = {
+  x: 34,
+  y: Math.floor(Math.random() * (24-2+1)) + 2,
+}
+
+const BOSS = 'BOSS';
+
+const STICK = 'STICK';
+const CLUB = 'CLUB';
+const DAGGER = 'DAGGER'
+const SWORD = 'SWORD';
+
+
+const PLAYER = 'PLAYER';
+const INITIALPLAYER = {
+  exp: 0,
+  hp: 100,
+  level: 1,
+  x:2,
+  y:2,
+  weapon: STICK,
+  strength: 3,
+  enemyHP: 30,
+  bossHP: 300,
+  game: false
+}
+
+var initializeBoard = function(){ 
+  for (var y=1;y<=BOARDSIZE.y;y++){
+    for (var x=1;x<=BOARDSIZE.x;x++){
+      this['x'+x+'y'+y] = {
+        x:x,
+        y:y,
+      }
+      this['x'+x+'y'+y].content = 
+         (x === INITIALPLAYER.x && y === INITIALPLAYER.y) ? 
+          PLAYER 
+
+        :(x === ITEM1.x && y === ITEM1.y) ? 
+          ITEM
+        :(x === ITEM2.x && y === ITEM2.y) ? 
+          ITEM
+        :(x === ITEM3.x && y === ITEM3.y) ? 
+          ITEM
+
+        :(x === ENEMY1.x && y === ENEMY1.y) ? 
+          ENEMY
+        :(x === ENEMY2.x && y === ENEMY2.y) ? 
+          ENEMY
+        :(x === ENEMY3.x && y === ENEMY4.y) ? 
+          ENEMY
+        :(x === ENEMY4.x && y === ENEMY4.y) ? 
+          ENEMY
+        :(x === ENEMY5.x && y === ENEMY5.y) ? 
+          ENEMY
+        :(x === ENEMY6.x && y === ENEMY6.y) ? 
+          ENEMY
+        :(x === ENEMY7.x && y === ENEMY7.y) ? 
+          ENEMY
+        
+        :(x === BOSS1.x && y === BOSS1.y) ? 
+          BOSS
+
+          // 1st room right wall
+        : (x == 11 && y <= 8 & y != 7 ) ||
+
+          // 2nd room right wall 
+          (x == 20 && y < 14 && y > 5) ||
+
+          // 2nd room top wall
+          (x > 11 && x < 20 && y == 6) ||
+
+          // 2nd room mini left wall
+          (x == 7 && y >= 10 && y < 14 && y!=12) ||
+
+          // 2nd room horizonal wall
+          (x <= 20 && y == 14 && x != 3) ||
+
+          // 3nd room bottom wall
+          (x <= 28 && y == 20 && x != 3) ||
+
+          // 3rd room vertical wall
+          (x == 28 && y != 10 && y !=18) ||
+
+          // final room horizontal wall
+          (x > 28 && y == 15) ||
+
+          // 1st room bottom wall
+          (x <= 11 && y == 9) ||
+
+          // borders
+          (x == 1 || y == 1 || x == BOARDSIZE.x || y == BOARDSIZE.y) ?
+          WALL
+
+        : (Math.random() < 0.01) ? 
+          HEALTH
+        :
+          EMPTY
+    }
+  }
+}
+
+const INITIALBOARD = new initializeBoard()
+console.log(INITIALBOARD);
+
+
+/* Helper Functions */
+
+const findNeighborKeyHelper = function(direction, origin){
+  let neighborKey;
+  switch (direction){
+    case UP:
+      neighborKey = 'x' + (origin.x) + 'y' + (origin.y - 1);
+      break;
+    case DOWN:
+      neighborKey = 'x' + (origin.x) + 'y' + (origin.y + 1);
+      break;
+    case RIGHT:
+      neighborKey = 'x' + (origin.x + 1) + 'y' + (origin.y);
+      break;
+    case LEFT:
+      neighborKey = 'x' + (origin.x - 1) + 'y' + (origin.y);
+      break;
+    default:
+      neighborKey = 'x' + (origin.x) + 'y' + (origin.y);
+      break;
+  }
+  return neighborKey;
+}
+
+const findKeyforHelper = function(state,searchTerm){
+  return (Object.keys(state).find(key => state[key].content === searchTerm));
+}
+
+
+////////////////////
+// Redux Reducers //
+////////////////////
+
+// Updates the board with the current position of everything
+function boardReducer(state=INITIALBOARD, action){
+  if (action.type === MOVE){
+    let oldCellKey = findKeyforHelper(state,PLAYER);
+    //let oldCellKey = findKeyforHelper(state,PLAYER);
+    let newCellKey = findNeighborKeyHelper(action.direction,state[oldCellKey]);
+    
+    return Object.assign({},state,
+      // clear oldCellKey
+      {[oldCellKey]:Object.assign({},state[oldCellKey],{
+          content:EMPTY
+        })
+      },
+      // update new cell
+      {[newCellKey]:Object.assign({},state[newCellKey],{
+          content:PLAYER
+        })
+      })
+  }
+  else{
+    return state;
+  }
+}
+
+// Updates player data
+function playerReducer(state=INITIALPLAYER, action){
+  if(action.type === MOVE){
+    switch (action.direction){
+      case UP:
+        return Object.assign({},state,{
+            x: state.x,
+            y: state.y-1
+          })
+      case RIGHT:
+        return Object.assign({},state,{
+          x: state.x+1,
+          y: state.y
+        })
+      case DOWN:
+        return Object.assign({},state,{
+          x: state.x,
+          y: state.y+1
+        })
+      case LEFT:
+        return Object.assign({},state,{
+          x: state.x-1,
+          y: state.y
+        })
+      default:
+        return state;
+    }
+  }
+
+  else if (action.type === HP){
+    return Object.assign({},state,{
+      hp: state.hp + action.hp
+    })
+  }
+
+  else if (action.type == GETITEM)
+    return Object.assign({},state,{
+      weapon: state.weapon == STICK ?
+                CLUB
+            : state.weapon == CLUB ?
+                DAGGER
+            : state.weapon == DAGGER ?
+                SWORD
+            : SWORD
+      },
+      {strength: state.strength + 3}
+      )
+  
+  else if (action.type === FIGHT){
+    return Object.assign({},state,{
+      
+      hp: state.hp - action.damage
+    },
+    {
+      enemyHP: state.enemyHP - action.strength
+    })
+  }
+
+  else if (action.type === FIGHTBOSS){
+    return Object.assign({},state,{
+      
+      hp: state.hp - action.damage
+    },
+    {
+      bossHP: state.bossHP - action.strength
+    })
+  }
+
+  else if (action.type === NEWENEMY){
+    return Object.assign({},state,{
+      enemyHP: action.hp
+    })
+  }
+
+  else if (action.type === DEATH){
+    return Object.assign({},state,{
+      game:DEATH
+    })
+  }
+
+  else if (action.type === WIN){
+    return Object.assign({},state,{
+      game:WIN
+    })
+  }
+
+  else if (action.type === LEVELUP){
+    return Object.assign({},state,{
+      level: action.level,
+      strength: state.strength+state.level*2 - 1
+    })
+  }
+
+  else if (action.type === EXPUP){
+    return Object.assign({},state,{
+      exp: state.exp+action.exp
+    })
+  }
+
+  else {
+    return state;
+  }
+}
+
+
+/* 
+Root Reducer
+*/
+const rootReducer = Redux.combineReducers({
+  board: boardReducer,
+  player: playerReducer
+});
+
+
+///////////////////////////
+// Redux Action Creators //
+///////////////////////////
+
+function moveAction(direction){
+  return {
+    type: MOVE,
+    direction:direction
+  }
+}
+
+function hpAction(hp){
+  return {
+    type: HP,
+    hp:hp
+  }
+}
+
+function getItemAction(){
+  return {
+    type: GETITEM
+  }
+}
+
+function levelUpAction(level){
+  return {
+    type: LEVELUP,
+    level: level
+  }
+}
+
+function expUpAction(exp){
+  return {
+    type: EXPUP,
+    exp:exp
+  }
+}
+
+function fightAction(strength,damage){
+  return {
+    type: FIGHT,
+    strength:strength,
+    damage:damage
+  }
+}
+
+function fightBossAction(strength,damage){
+  return {
+    type: FIGHTBOSS,
+    strength:strength,
+    damage:damage
+  }
+}
+
+function newEnemyAction(hp){
+  return {
+    type: NEWENEMY,
+    hp: hp
+  }
+}
+
+function deathAction(){
+  return {
+    type: DEATH
+  }
+}
+
+function winAction(){
+  return {
+    type: WIN
+  }
+}
+
+///////////////// 
+// Redux Store //
+/////////////////
+
+let store = Redux.createStore(rootReducer)
+
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+)
+
+
+////////////////////////////////////////////////////////////////////// 
+// React Components //  // React Components //  // React Components //
+//////////////////////////////////////////////////////////////////////
+
+
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+
+    self = this.props;
+    this.tryMove = this.tryMove.bind(this);
+  }
+
+  tryMove(direction) {
+  // 1. Get the neighbor cellKey based on direction (helper function)
+  // 2. Decide what actions need to be invoked based neighbor content
+
+    // 1
+    let neighborKey = findNeighborKeyHelper(direction,this.props.player);
+    // 2
+    if (this.props.board[neighborKey]){
+      switch (this.props.board[neighborKey].content){
+        case EMPTY:
+          this.props.move(direction)
+          break;
+
+        case WALL:
+          break;
+
+        case ITEM:
+          this.props.move(direction);
+          this.props.getItem();
+          break;
+
+        case HEALTH:
+          this.props.move(direction);
+          this.props.hp(10);
+          break;
+
+        case ENEMY:
+          this.props.fight(this.props.player.strength-3+Math.floor(Math.random()*6),3+Math.floor(Math.random()*3))
+          if(this.props.player.enemyHP <= 0){
+            this.props.move(direction)
+            this.props.newEnemy(35)
+
+            
+
+            this.props.expUp(50)
+            if (this.props.player.exp >= 50){
+              this.props.levelUp(2);
+              if (this.props.player.exp >= 100){
+                this.props.levelUp(2);
+                if (this.props.player.exp >= 200){
+                  this.props.levelUp(3);
+                  if (this.props.player.exp >= 350){
+                    this.props.levelUp(4);
+                  }
+                }
+              }
+            }
+          }
+          if(this.props.player.hp <= 0){
+            this.props.move(direction)
+            this.props.death();
+            Mousetrap.reset();
+          }
+
+          break;
+
+        case BOSS:
+          this.props.fightBoss(this.props.player.strength-3+Math.floor(Math.random()*6),12+Math.floor(Math.random()*3))
+          if(this.props.player.bossHP <= 0){
+            this.props.move(direction)
+            this.props.win();
+            Mousetrap.reset();
+          }
+          if(this.props.player.hp <= 0){
+            this.props.move(direction)
+            this.props.death();
+            Mousetrap.reset();
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+  
+
+  /* KEYBOARD CONTROLS */
+  componentDidMount() {
+    Mousetrap.bind('up', function(){this.tryMove(UP)}.bind(this));
+    Mousetrap.bind('right', function(){this.tryMove(RIGHT)}.bind(this));
+    Mousetrap.bind('left', function(){this.tryMove(LEFT)}.bind(this));
+    Mousetrap.bind('down', function(){this.tryMove(DOWN)}.bind(this));
+  }
+
+  
+
+  render() {
+    return (
+      <div style={{backgroundColor:'black'}} className="App">
+        <Spotlight player ={this.props.player}/>
+        <Stats stats={this.props.player} />
+        <p className="App-intro">
+          Dungeon Crawler
+        </p>
+        <Board player={this.props.player} board={this.props.board}/>
+      </div>
+    );
+  }
+}
+
+const Spotlight = (props) => {
+  return (
+    <div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 180,
+          top: 125,
+          width: 200,
+          height: 200,
+          borderRadius: 20,  
+          boxShadow: '0px 0px 4px 10px rgba(0,0,0,0.5) inset, 0px 0px 0px 1000px black'
+          }}
+
+      ></div>
+
+      <div style={{
+          position: 'absolute',
+          left: 180,
+          top: 300,
+          backgroundColor:'SteelBlue',
+          color:'white'
+      }}
+      ><h2>{props.player.game}</h2>
+      </div>
+    </div>
+  );
+}
+
+const Stats = (props) => {
+  return (
+  <div
+    style={{
+      display: 'flex',
+      backgroundColor: 'SteelBlue',
+      color: 'white',
+      zIndex:1,
+      marginTop: -20,
+      position: 'absolute',
+      width: 600
+    }}
+  >
+    <h3 style={{marginLeft:30}}>HP: {props.stats.hp}</h3>
+    <h3 style={{marginLeft:30}}>EXP: {props.stats.exp}</h3> 
+    <h3 style={{marginLeft:30}}>Level: {props.stats.level}</h3>     
+    <h3 style={{marginLeft:30}}>Weapon: {props.stats.weapon}</h3>
+    <h3 style={{marginLeft:30}}>Strength: {props.stats.strength}</h3>
+    
+  </div>);
+}
+
+const Board = (props) => {
+
+  let board = props.board;
+  const PLAYERCOLOR = 'blue';
+  const WALLCOLOR = 'grey';
+  const EMPTYCOLOR = 'WhiteSmoke';
+  const ITEMCOLOR = 'gold';
+  const ENEMYCOLOR = 'red';
+  const HEALTHCOLOR = 'green';
+  const BOSSCOLOR = 'Maroon';
+  let cellColor;
+
+  let cells = [];
+  for (var cell in board){
+    // Item is not a cell (prototype junk)
+    if (!board.hasOwnProperty(cell)) { continue; }
+
+
+    ///////////
+    // CELLS //
+    ///////////
+
+    /* cellColor */
+    switch (board[cell].content){
+      case PLAYER:
+        cellColor = PLAYERCOLOR;
+        break;
+
+      case WALL:
+        cellColor = WALLCOLOR;
+        break;
+
+      case ITEM:
+        cellColor = ITEMCOLOR;
+        break;
+
+      case ENEMY:
+        cellColor = ENEMYCOLOR;
+        break;
+
+      case HEALTH:
+        cellColor = HEALTHCOLOR;
+        break;
+
+      case BOSS:
+        cellColor = BOSSCOLOR;
+        break;
+      
+      default:
+        cellColor = EMPTYCOLOR;
+        break;
+    }
+    //
+
+    let cellStyle = 
+      {
+        width: CELLSIZE,
+        height: CELLSIZE,
+        //boxShadow:'0px 0px 0px 1px black inset',
+        fontSize: 10,
+        backgroundColor: cellColor
+      }
+    
+    cells.push(<div
+          key={cell}
+          style={cellStyle}
+        ></div>)
+
+  }
+
+  // FINAL BOARD RETURN
+  return(
+    <div 
+      style={{
+        marginLeft:300-props.player.x*CELLSIZE,
+        marginTop:200-props.player.y*CELLSIZE,
+        display:'flex', 
+        flexWrap: 'wrap', 
+        border:"1px solid black", 
+        width:CELLSIZE*BOARDSIZE.x
+      }}
+    >
+      { cells }
+    </div>
+  );
+}
+
+ ///////////////
+// React-Redux //
+ ///////////////
+
+const mapStateToProps = (state) => {
+  return {
+    board: state.board,
+    player: state.player
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    move: function(direction){
+      dispatch(moveAction(direction));
+    },
+    hp: function(hp){
+      dispatch(hpAction(hp));
+    },
+    getItem: function(){
+      dispatch(getItemAction());
+    },
+    fight: function(strength, damage){
+      dispatch(fightAction(strength, damage));
+    },
+    fightBoss: function(strength, damage){
+      dispatch(fightBossAction(strength, damage));
+    },
+    newEnemy: function(hp){
+      dispatch(newEnemyAction(hp));
+    },
+    levelUp: function(level){
+      dispatch(levelUpAction(level));
+    },
+    expUp: function(exp){
+      dispatch(expUpAction(exp));
+    },
+    win: function(){
+      dispatch(winAction());
+    },
+    death: function(){
+      dispatch(deathAction());
+    }
+  }
+}
+
+const Container = ReactRedux.connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+ReactDOM.render(
+      <Provider store={store}>
+        <Container />
+      </Provider>,
+  document.getElementById('root')
+);

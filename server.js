@@ -8,6 +8,8 @@ const compiler = webpack(webpackConfig);
 
 app.use(express.static(__dirname + '/public'));
 
+app.use('/projects',express.static(__dirname + '/projects/'));
+
 app.use(webpackDevMiddleware(compiler, {
   hot: true,
   filename: 'bundle.js',

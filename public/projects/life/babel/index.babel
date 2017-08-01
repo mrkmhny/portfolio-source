@@ -1,0 +1,300 @@
+////////////////////
+// game constants //
+////////////////////
+const ROWLENGTH = 25;
+//    COLLENGTH = 25;
+const BOXCOUNT=ROWLENGTH*ROWLENGTH;
+const BOXSIZE=15;
+const BOXBORDER=1;
+var generation = -1;
+var clock;
+
+// creates initial array of boxes
+var initBoxes=[];
+for (var i=0;i<BOXCOUNT;i++){
+  
+      ////////////////////////////
+      // logic to find neighbors//
+      ////////////////////////////
+  
+  var neighbors = [];
+  // Top Left
+  if (i===0){
+    neighbors.push(
+      i + ROWLENGTH * (ROWLENGTH -1),
+      i + ROWLENGTH * (ROWLENGTH -1)+1,
+      i + 1,
+      i + ROWLENGTH + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH*2 -1,
+      i + ROWLENGTH -1,
+      i + ROWLENGTH * (ROWLENGTH) -1
+    )
+  }
+  
+  // Top right
+  else if (i== ROWLENGTH-1){
+    neighbors.push(
+      i + ROWLENGTH * (ROWLENGTH -1),
+      i + ROWLENGTH * (ROWLENGTH -1) - ROWLENGTH + 1,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH - 1,
+      i - 1,
+      i + ROWLENGTH * (ROWLENGTH -1) - 1
+    )
+  }
+  
+  // Bottom right
+  else if (i == ROWLENGTH * ROWLENGTH -1){
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH - ROWLENGTH + 1,
+      i - ROWLENGTH + 1,
+      i - i,
+      i - (ROWLENGTH * (ROWLENGTH-1)),
+      i - (ROWLENGTH * (ROWLENGTH-1)) - 1,
+      i - 1,
+      i - ROWLENGTH - 1
+    )
+  }
+  
+  //Bottom left
+  else if (i == ROWLENGTH * (ROWLENGTH -1)){
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i - i + 1,
+      i - i,
+      i - i + ROWLENGTH - 1,
+      i + ROWLENGTH - 1,
+      i - 1
+    )
+  }
+  
+  // top regular
+  else if (i < ROWLENGTH){
+    neighbors.push(
+      i + ROWLENGTH * (ROWLENGTH -1),
+      i + ROWLENGTH * (ROWLENGTH -1) + 1,
+      i + 1,
+      i + ROWLENGTH + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH - 1,
+      i - 1,
+      i + ROWLENGTH * (ROWLENGTH -1) - 1
+    )
+  }
+  
+  // right regular
+  else if ((i+1) % ROWLENGTH == 0){
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH - ROWLENGTH + 1,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH - 1,
+      i - 1,
+      i - ROWLENGTH - 1
+    
+    )
+  }
+  
+  // bottom regular
+  else if (i >= (ROWLENGTH * (ROWLENGTH-1))){
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i - (ROWLENGTH*(ROWLENGTH-1)) + 1,
+      i - (ROWLENGTH*(ROWLENGTH-1)),
+      i - (ROWLENGTH*(ROWLENGTH-1)) -1,
+      i - 1,
+      i - ROWLENGTH - 1
+    )
+  }
+  
+  // left regular
+  else if ((i) % ROWLENGTH == 0){
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i + ROWLENGTH + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH + ROWLENGTH - 1,
+      i + ROWLENGTH - 1,
+      i - 1
+    )
+  }
+  
+  // just regular
+  else{
+    neighbors.push(
+      i - ROWLENGTH,
+      i - ROWLENGTH + 1,
+      i + 1,
+      i + ROWLENGTH + 1,
+      i + ROWLENGTH,
+      i + ROWLENGTH - 1,
+      i - 1,
+      i - ROWLENGTH - 1
+    )
+  }
+  
+  
+  initBoxes.push({
+    num:i,
+    row:Math.floor(ROWLENGTH/i),
+    col:i%ROWLENGTH,
+    alive:(Math.floor(Math.random() * (1 - 0 + 1)) + 0) == 1 ?
+           true : false,
+    neighbors:neighbors
+  });
+  
+}
+
+//////////////////////
+// Render the boxes //
+//////////////////////
+class Board extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      boxes:initBoxes,
+    };
+    this.birthBox = this.birthBox.bind(this);
+    this.checkNeighbors2 = this.checkNeighbors2.bind(this);
+    this.repeatInterval = this.repeatInterval.bind(this);
+    this.stopInterval = this.stopInterval.bind(this);
+    this.clearBoxes = this.clearBoxes.bind(this);
+  }
+  
+  checkNeighbors2() {
+    var currentBoxes = this.state.boxes;
+    var newBoxes = currentBoxes;
+    var nextGen = [];
+    console.log(currentBoxes)
+    
+    for (var b=0;b<currentBoxes.length;b++){
+      var livingNeighbors = 0;
+
+      for (var j=0;j<currentBoxes[b].neighbors.length;j++){
+        if (currentBoxes[currentBoxes[b].neighbors[j]].alive==true){
+          livingNeighbors++;                 
+        }
+      }
+
+      if (livingNeighbors>3){
+        nextGen.push([b,false]);
+      }
+      
+      else if (livingNeighbors<2){
+        nextGen.push([b,false]);
+      }
+      
+      else if (livingNeighbors==3){
+        nextGen.push([b,true]);
+      }
+      
+    }
+    
+    for (var p=0;p<nextGen.length;p++){
+      newBoxes[nextGen[p][0]].alive = nextGen[p][1];
+    }
+    generation ++;
+    this.setState({boxes: newBoxes});
+    
+    if (this.state.running === false){
+      clearInterval(this.state.interval);
+    }
+  }
+  
+  repeatInterval(){
+    //this.setState({running:true})
+    this.setState({interval:setInterval(this.checkNeighbors2(),5000)});
+  }
+  
+  stopInterval(){
+    clearInterval(clock)
+  }
+  
+  birthBox(i) {
+    var newBoxes = this.state.boxes;
+    newBoxes[i].alive = true;
+    this.setState({boxes: newBoxes});
+  }
+  
+  clearBoxes(){
+    var clearedBoxes = this.state.boxes;
+    generation = 0;
+    for (var c=0;c<this.state.boxes.length;c++){
+      clearedBoxes[c].alive=false;
+    }
+    
+    this.setState({boxes:clearedBoxes});
+  }
+
+  componentDidMount(){
+    this.checkNeighbors2();
+  }
+  
+  render(){
+    var board = this;
+    var boxesRend = board.state.boxes.map(function(c,i,a){
+    var boxColor = c.alive ? 'steelblue' : 'lightgrey';
+      // !! NOT FINAL COMPONENT RETURN FUNCTION
+      return( 
+        <div 
+          onClick={function(){board.birthBox(i)}}
+          
+              
+            
+          className='box'
+          style={{
+            width:BOXSIZE,
+            height:BOXSIZE,
+            fontSize:10,
+            backgroundColor: boxColor
+          }}></div>
+             );
+    },this)
+   
+    
+    
+    //////////////////
+    // Final Return //
+    /////////////////.
+    
+    return (
+      <div>
+        <h4>{"Generation: "+ generation}</h4>
+        <button 
+          onClick={function(){clock = setInterval(board.checkNeighbors2,100)}}
+        >Start</button>
+        <button
+          onClick={board.stopInterval}
+          >Stop</button>
+        <button
+          onClick={board.clearBoxes}
+          >Clear
+        </button>
+        
+        <div 
+          className="board"
+          style={{
+            width:ROWLENGTH*(BOXSIZE+BOXBORDER*2),
+            height:ROWLENGTH*(BOXSIZE+BOXBORDER*2)
+          }}
+        >
+            {boxesRend}
+        </div>
+      </div>
+      );
+  }
+}
+
+ReactDOM.render(<Board />, document.getElementById('app'))

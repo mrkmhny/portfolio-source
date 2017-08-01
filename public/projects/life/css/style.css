@@ -1,0 +1,19 @@
+.board{ 
+  display:flex;
+  margin-top:10px;
+  justify-content:flex-start;
+  align-content:flex-start;
+  flex-wrap:wrap;
+  border:skyblue solid 2px;
+  height:300px;
+}
+
+.box{
+  text-align:center;
+  border:blue solid 1px;*/
+  
+}
+
+button {
+  margin-right:5px;
+}

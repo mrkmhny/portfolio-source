@@ -1,4 +1,5 @@
 import React from 'react';
+//import jsimon from '../projects/jsimon/index.html';
 
 class Projects extends React.Component {
   constructor() {
@@ -13,28 +14,28 @@ class Projects extends React.Component {
     var projects = [
       {
         'name':'JSimon',
-        'repo':'https://codepen.io/mrkmhny/full/MpwWPJ/',
+        'repo':"/projects/jsimon/",
         'about':'A pure JS/JQuery implementation of the classic electronic game "Simon"',
         'languages':'Jquery, JavaScript, html',
         'icon':'th-large'
       },
       {
         'name':'Box Slayer',
-        'repo':'https://codepen.io/mrkmhny/full/bqRZyP/',
+        'repo':'/projects/boxslayer/',
         'about':'A low-fi rogue-inspired dungeon crawler game built with React/Redux',
         'languages':'JavaScript, React.js, Redux, HTML',
         'icon':'stop'
       },
       {
         'name':'Instant Weather',
-        'repo':'https://codepen.io/mrkmhny/full/rjQrvY/',
+        'repo':'/projects/weather/',
         'about':'Detects location via IP and retrieves data from 3rd party weather API',
         'languages':'JavaScript, OpenWeatherMap API',
         'icon':'sun-o'
       },
       {
         'name':"Conway's Game of Life",
-        'repo':'https://codepen.io/mrkmhny/full/rjQrvY/',
+        'repo':'/projects/life/',
         'about':'A React.js implementation of John Conway’s cellular automation',
         'languages':'JavaScript, React.js',
         'icon':'th'
@@ -42,7 +43,7 @@ class Projects extends React.Component {
       {
         'name':'Band Name Generator',
         'repo':'https://www.youtube.com/embed/XPslsKDocV8',
-        'about':'A simple simon game',
+        'about':'Creates pseudo-random word combinations to form silly bandnames and quickly search if they are available',
         'languages':'PHP, MySQL',
         'icon':'music'
       }
