@@ -30,16 +30,16 @@ class About extends React.Component {
             </div>
           </a>
           <p>I received my first computer on Christmas in 1999 (I thought I was a hotshot with my Dell tower with 5GB of storage),
-          but my first real foray into computer science wasn't until 2012, when I signed up Harvard University's first cohort for CS50x: Introduction to Computer Science on edx.org,
+          but my first real foray into computer science wasn't until 2012, when I signed up for Harvard University's first cohort of CS50x: Introduction to Computer Science on edx.org,
           back when it was still just an experiment between Harvard and MIT.  I dove in headfirst and was one of the 1% of students to finish the course in it's entirety.
           Here's my <a href="https://s3.amazonaws.com/verify.edx.org/downloads/78c7610f250a4d33a0ad02afe30b435a/Certificate.pdf">certificate</a> to prove it! </p>
-          <p>The HarvardX course was largely focused on programming in C as broader computer science theory (abstraction, data structures, algorithms, memory management) and web development with PHP, but since then I've continued to experiment with other languages and frameworks, including Python, Ruby on Rails, and most recently, the MERN stack: MongoDB, Express, React, and Node.js.</p>
+          <p>The HarvardX course was largely focused on programming in C for broader computer science theory (abstraction, data structures, algorithms, memory management) and web development with PHP, but since then I've continued to experiment with other languages and frameworks, including Python, Ruby on Rails, and most recently, JS-focused tools like React, Node.js, Express, and MongoDB.</p>
           <div className="lantea image">
             <img src={lantea}/>
             <h4>Mockup for the Lantea homepage</h4>
           </div>
-          <p>Currently, I'm working on a freelance project that focuses primarily on building the focuses building out the front-end design of a new web-app using HTML/CSS.</p>
-          <p>My goal is find full-time web development position where I can continue to learn and hone my craft. I hope to use the client-facing experience that I've gained during my time in Sales at tech startups over the past few years to create products that people love and use everyday!</p>
+          <p>Currently, I'm working on a freelance project that focuses primarily on building out the front-end design of a new web-app using HTML and LESS.</p>
+          <p>My goal is find full-time web development position where I can continue to learn and hone my craft. I hope to use the client-facing experience that I've gained during my time in sales at tech startups over the past few years to create products that people love and use everyday!</p>
         </div>
       </div>
     );

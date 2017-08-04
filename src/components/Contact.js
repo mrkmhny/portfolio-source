@@ -40,10 +40,10 @@ class Contact extends React.Component {
             <span id="email">mark.r.mahoney@gmail.com</span>
           </p>
         </a>
-        <a href="github.com/mrkmhny">
+        <a href="http://github.com/mrkmhny">
           <p><i className="fa fa-fw fa-github"/>mrkmhny</p>
         </a>
-        <a href="linkedin.com/in/mrmahoney">
+        <a href="http://linkedin.com/in/mrmahoney">
           <p><i className="fa fa-fw fa-linkedin-square"/>linkedin.com/in/MRMahoney</p>
         </a>
       </div>

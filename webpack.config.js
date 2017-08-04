@@ -1,14 +1,36 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const { NODE_ENV: env = 'development' } = process.env;
+
+const entry = [
+  './render.js',
+  './main.js',
+  './style.scss'
+];
+
+if (env === 'development') {
+  entry.push('webpack-hot-middleware/client');
+}
+
+const plugins = [
+  new webpack.EnvironmentPlugin({
+    NODE_ENV: env
+  }),
+  new webpack.NoEmitOnErrorsPlugin()
+];
+
+if (env === 'development') {
+  plugins.push(new webpack.HotModuleReplacementPlugin());
+}
+
+if (env === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
 module.exports = {
   context: path.join(__dirname, 'src'),
-  entry: [
-    './render.js',
-    './main.js',
-    'webpack-hot-middleware/client',
-    './style.scss'
-  ],
+  entry,
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
@@ -52,8 +74,5 @@ module.exports = {
     contentBase: "./public",
     hot: true
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
+  plugins
 };
