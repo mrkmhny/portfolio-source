@@ -14,15 +14,15 @@ class Projects extends React.Component {
     var projects = [
       {
         'name':'JSimon',
-        'site':"/projects/jsimon/",
-        'repo':"https://github.com/mrkmhny/jsimon",
+        'site':"http://jsimon.bitballoon.com",
+        'repo':"https://github.com/mrkmhny/jsimon/index.html",
         'about':'A pure JS/JQuery implementation of the classic electronic game "Simon"',
         'languages':'Jquery, JavaScript, html',
         'icon':'th-large'
       },
       {
         'name':'Box Slayer',
-        'site':'/projects/boxslayer/',
+        'site':'http://boxslayer.bitballoon.com',
         'repo':'https://github.com/mrkmhny/boxslayer',
         'about':'A low-fi rogue-inspired dungeon crawler game built with React/Redux',
         'languages':'JavaScript, React.js, Redux, HTML',
@@ -30,7 +30,7 @@ class Projects extends React.Component {
       },
       {
         'name':'Instant Weather',
-        'site':'/projects/weather/',
+        'site':'http://instantweather.bitballoon.com',
         'repo':'https://github.com/mrkmhny/weather',
         'about':'Detects location via IP and retrieves data from 3rd party weather API',
         'languages':'JavaScript, OpenWeatherMap API',
@@ -38,7 +38,7 @@ class Projects extends React.Component {
       },
       {
         'name':"Conway's Game of Life",
-        'site':'/projects/life/',
+        'site':'http://conwayslife.bitballoon.com',
         'repo':'https://github.com/mrkmhny/conwayslife',
         'about':'A React.js implementation of John Conway’s cellular automation',
         'languages':'JavaScript, React.js',

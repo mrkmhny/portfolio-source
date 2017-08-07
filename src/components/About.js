@@ -19,7 +19,7 @@ class About extends React.Component {
         <h2>Overview</h2>
         <div className="section">
           <p>Hi, I'm Mark Mahoney! I currently spend most of my time working with our sponsors at <a href="http://mlh.io">Major League Hacking</a>. In my free time, I help to build out the front-end design on a writer's platform for the Dutch community called "Lantea."</p>
-          <p><a href="https://www.dropbox.com/s/tiaf4w7nw4bkyit/mark%20mahoney%20resume.pdf?dl=0"><i className="fa fa-fw fa-file-text-o"/>VIEW MY FULL RESUME</a></p>
+          <p><a href="https://www.dropbox.com/s/qq0ee235yhjip4d/mark%20mahoney%20aug%207%202017.pdf?dl=0"><i className="fa fa-fw fa-file-text-o"/>VIEW MY FULL RESUME</a></p>
         </div>
         <h2>Development Experience</h2>
         <div className="section development">
